@@ -7,6 +7,8 @@ defmodule BustrackerWeb.SessionController do
   def create(conn, %{"email" => email, "password" => password}) do
     IO.inspect(email)
     IO.inspect(password)
+    user = Accounts.get_user_by_email(email)
+    
     #p = Comeonin.Argon2.hashpwsalt("password1")
     #user = %{ name: "Kous", email: "chill@chill.com", mobnum: "1234567890", password_hash: p }    
     #IO.inspect(Comeonin.Argon2.check_pass(user, password))

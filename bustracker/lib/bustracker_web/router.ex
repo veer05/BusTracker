@@ -25,6 +25,7 @@ defmodule BustrackerWeb.Router do
   # Other scopes may use custom stacks.
    scope "/api/v1", BustrackerWeb do
      resources "/users", UserController, except: [:new, :edit]
+     post "/token", TokenController, :create
      pipe_through :api
    end
 end

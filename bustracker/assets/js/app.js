@@ -20,5 +20,14 @@ import "phoenix_html"
 
 // import socket from "./socket"
 
+
+
+
+import store from './store';
+import api from './api';
+
 import bustracker_init from "./bustracker_files/bustracker";
-$(bustracker_init);
+$(function() {
+	api.request_users();
+  bustracker_init(store);
+});
