@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { NavItem } from 'reactstrap';
 
 export default function Nav(props) {
+  console.log('In Nav Props', props)
   return (
     <nav className="navbar navbar-dark bg-secondary navbar-expand">
       <span className="navbar-brand">
@@ -17,7 +18,7 @@ export default function Nav(props) {
         </NavItem>
       </ul>
       <span className="navbar-text">
-        user@host
+        {props.token.user_name}
       </span>
     </nav>
   );

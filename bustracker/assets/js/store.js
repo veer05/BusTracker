@@ -21,12 +21,12 @@ import deepFreeze from 'deep-freeze';
 //************************************************************
 
 function token(state = null, action) {
-  console.log('inside set token', action.type)
   switch (action.type) {
     case 'SET_TOKEN':
+      sessionStorage.setItem('Token', JSON.stringify(action.token));
       return action.token;
     default:
-      return state;
+      return JSON.parse(sessionStorage.getItem('Token'));;
   }
 }
 

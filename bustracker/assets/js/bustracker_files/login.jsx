@@ -12,7 +12,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 let LoginForm = connect(({login}) => {return {login};})((props) => {
 
-  console.log('Login form ', props)
   function update(ev) { 
     let tgt = $(ev.target);
     let data = {};
@@ -36,7 +35,7 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
       <Label> User Email </Label>
       <Input type="email" name="email" placeholder="example@dot.com" value={props.login.email} onChange={update}/>
       <Label> Enter Password </Label>
-      <Input type="password" name="password" placeholder="pass" value={props.login.password} onChange={update}/>
+      <Input type="password" name="password" placeholder="**password**" value={props.login.password} onChange={update}/>
     </FormGroup>
     <Button onClick={create_token} color="primary">Log In</Button> &nbsp;
   </div>;
@@ -45,8 +44,6 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
 
 
 function Login(props) {
- 
-  	console.log('I am in login', props)
 
   	let session_info;
   	session_info = <LoginForm />

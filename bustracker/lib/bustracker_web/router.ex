@@ -15,7 +15,7 @@ defmodule BustrackerWeb.Router do
 
   scope "/", BustrackerWeb do
     pipe_through :browser # Use the default browser stack
-
+    
     get "/", PageController, :index
     get "/users", PageController, :index
     post "/session", SessionController, :create
@@ -24,8 +24,8 @@ defmodule BustrackerWeb.Router do
 
   # Other scopes may use custom stacks.
    scope "/api/v1", BustrackerWeb do
-     resources "/users", UserController, except: [:new, :edit]
      post "/token", TokenController, :create
+     resources "/users", UserController, except: [:new, :edit]
      pipe_through :api
    end
 end
