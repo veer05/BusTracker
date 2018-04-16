@@ -15,6 +15,38 @@ class TheServer {
     });
   }
 
+  request_stop_names(data) {
+    $.ajax("api/v1/stop_names", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'STOPS_LIST',
+          users: resp.data,
+        });
+      },
+    });
+  }
+
+  request_predictions(data) {
+    console.log("inside request_predictions")
+    console.log(JSON.stringify(data))
+    $.ajax("api/v1/stop_names", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'PREDICTIONS_LIST',
+          users: resp.data,
+        });
+      },
+    });    
+  }
+
   submit_login(data) {
     $.ajax("/api/v1/token", {
       method: "post",
