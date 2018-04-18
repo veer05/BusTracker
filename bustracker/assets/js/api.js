@@ -1,6 +1,7 @@
 import store from './store';
 
 class TheServer {
+  // GETS ALL THE USERS 
   request_users() {
     $.ajax("/api/v1/users", {
       method: "get",
@@ -15,7 +16,45 @@ class TheServer {
     });
   }
 
-  request_stop_names(data) {
+  // GETS THE BUS AT THE BUSSTOP 
+  // TODO RENAME
+  submit_stop(data){
+    $.ajax("api/v1/stop_names", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        console.log("Ela you beautiful sob",resp.buslist)
+        store.dispatch({
+          type: 'BUS_LIST',
+          buslist: resp.buslist,
+        });
+      },
+    });
+  }
+
+  // Gets the stop that the user requested (In case there are multiple
+  // there he might choose to see schedule of other bus-stop nearby)
+  nearest_stops(data) {
+    $.ajax("api/v1/stop_names", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        console.log("Ela you beautiful sob",resp.nearby_stops)
+        store.dispatch({
+          type: 'NEARBY_STOPS',
+          nearby_stops: resp.nearby_stops,
+        });
+      },
+    });
+  }
+
+  // GETS ALL THE STOPS NAME IN MBTA TO BE USED FOR 
+  // SOURCE AND DESTINATION
+  request_allStops(data) {
     $.ajax("api/v1/stop_names", {
       method: "post",
       dataType: "json",
@@ -24,27 +63,10 @@ class TheServer {
       success: (resp) => {
         store.dispatch({
           type: 'STOPS_LIST',
-          users: resp.data,
+          allStops: resp.allStops,
         });
       },
     });
-  }
-
-  request_predictions(data) {
-    console.log("inside request_predictions")
-    console.log(JSON.stringify(data))
-    $.ajax("api/v1/stop_names", {
-      method: "post",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify(data),
-      success: (resp) => {
-        store.dispatch({
-          type: 'PREDICTIONS_LIST',
-          users: resp.data,
-        });
-      },
-    });    
   }
 
   submit_login(data) {
@@ -62,7 +84,22 @@ class TheServer {
     });
   }
 
-  
+  google_login(data){
+    let token = {"user_name": data.profileObj.givenName, "user_id": data.profileObj.googleId,
+     "token": data.tokenId}
+    store.dispatch({
+      type: 'SET_TOKEN',
+      token: token,
+    });
+  }
+
+  // TO DISCUSS ABOUT MAPS AND DELETE
+  request_coordinate_busstops(){
+    store.dispatch({
+      type: 'SET_COORDINATE',
+      token: null,
+    });
+  } 
 }
 
 export default new TheServer();

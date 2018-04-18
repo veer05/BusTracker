@@ -29,5 +29,8 @@ import api from './api';
 import bustracker_init from "./bustracker_files/bustracker";
 $(function() {
 	api.request_users();
+	// TO DELETE AND DISCUSS ABOUT MAPS BUG
+	api.request_coordinate_busstops();
+	api.request_allStops({"request_stop": "allstops"});
   bustracker_init(store);
 });

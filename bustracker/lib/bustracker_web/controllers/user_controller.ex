@@ -7,8 +7,6 @@ defmodule BustrackerWeb.UserController do
   action_fallback BustrackerWeb.FallbackController
 
   def index(conn, _params) do
-    IO.inspect('Inside User Conroller')
-    IO.inspect(conn)
     users = Users.list_users()
     render(conn, "index.json", users: users)
   end

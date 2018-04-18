@@ -4,27 +4,33 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Provider, connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import Nav from './nav';
+import All_Routes from './all_routes';
+import All_Bus from './all_bus';
 import Login from './login';
-//import Feed from './feed';
 import Users from './users';
-//import PostForm from './post-form';
-
+import Src_To_Des from './from_to_form';
+import api from '../api';
+import Map from './map'
 
 export default function bustracker_init(store) {
   ReactDOM.render(
-    <Provider store={store}>	
+    <Provider store={store}>
       <BusTracker state={store.getState()} />
     </Provider>,
     document.getElementById('root'),
+    console.log('this works',store.getState().latitude)
   );
 }
 
-let BusTracker = connect((state) => state)((props) => {
-  
+let BusTracker = connect((state) => state)((props) => { 
+	console.log('this is bustracker',props)
+  let stops;
+  if (props.stops_nearby.length > 0){
+  stops = _.map(props.stops_nearby, (uu) => <option>{uu}</option>);}
   function logout(){
     sessionStorage.clear();
     window.location.reload();
-}
+  }
 
   console.log('This is inside props',props)
   if (props.token == null){
@@ -44,6 +50,24 @@ let BusTracker = connect((state) => state)((props) => {
           	<div className="btnlft">
            		<Button onClick={logout}>Log Out</Button>
 			</div>
+			<Route path="/" exact={true} render={() => 
+			<div className="row">
+				<div className="col-md-4">
+					<Src_To_Des />
+				</div>
+				<div className="col-md-8">
+					<div className="container">
+					<div className="row">
+	            		<All_Routes />
+	            		<All_Bus busses={props.bus_list} />
+	            	</div>
+	            	<div className="row">
+                  			<Map latitude={props.latitude} longitude={props.longitude}/>
+            		</div>
+            	</div>
+	          	</div>
+	        </div>
+			} />
           			Please Work
           	<Route path="/users" exact={true} render={() =>
            	 <Users users={props.users} />

@@ -17,4 +17,11 @@ defmodule BustrackerWeb.FallbackController do
     |> put_status(:not_found)
     |> render(BustrackerWeb.ErrorView, :"404")
   end
+
+  def call(conn, {:error, "invalid user-identifier"}) do
+    IO.inspect('Here')
+    conn
+    |> put_status(:not_found)
+    |> put_flash(:info, "User Does Not Exist")
+  end
 end

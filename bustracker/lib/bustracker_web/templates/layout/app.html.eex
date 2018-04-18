@@ -10,6 +10,7 @@
     <title>Hello Bustracker!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBjXnIerb2mk11HdpsGuYEIDIeFOusHgE"></script>
 
   <body>
     <div class="container">

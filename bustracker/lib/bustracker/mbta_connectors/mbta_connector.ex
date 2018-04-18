@@ -23,7 +23,11 @@ defmodule Bustracker.MbtaConnectors do
   def get_stop_names() do
     raw_stops = get_raw_stops()
     
-    Enum.map(raw_stops, fn(x) -> [x["attributes"]["name"], x["id"]] end)
+    Enum.map(raw_stops, 
+    fn(x) -> %{
+      "stop_name" => x["attributes"]["name"], 
+      "stop_id" => x["id"]
+      } end)
   end
 
   """

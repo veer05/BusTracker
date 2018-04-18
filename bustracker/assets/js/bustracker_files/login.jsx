@@ -4,8 +4,8 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 import api from '../api';
 import { Link } from 'react-router'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
-
+import { GoogleLogin } from 'react-google-login';
+ import { GoogleLogout } from 'react-google-login';
 
 
 
@@ -26,9 +26,18 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
     api.submit_login(props.login);
     console.log(props.login);
   }
+  
 
+  const responseGoogle = (response) => {
+  console.log(response);
+  api.google_login(response);
+  }
 
+  const FailresponseGoogle = (response) => {
+  console.log('Pop Up Closed');
+  }
 
+  var FontAwesome = require('react-fontawesome')
   return <div style={{padding: "4ex"}}>
     <h3>Login</h3>
     <FormGroup>
@@ -38,7 +47,16 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
       <Input type="password" name="password" placeholder="**password**" value={props.login.password} onChange={update}/>
     </FormGroup>
     <Button onClick={create_token} color="primary">Log In</Button> &nbsp;
-  </div>;
+
+  <GoogleLogin
+    clientId={'1006692023654-ii7vqsoj0l55hqtkpulvifvr43tdj02l.apps.googleusercontent.com'}
+    onSuccess={responseGoogle}
+    onFailure={FailresponseGoogle}>
+    <FontAwesome
+      className='google'
+    />
+    <span> Login with Google</span>
+  </GoogleLogin>  </div>;
 });
 
 
