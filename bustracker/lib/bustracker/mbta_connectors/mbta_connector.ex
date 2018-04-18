@@ -38,7 +38,13 @@ defmodule Bustracker.MbtaConnectors do
   def get_proximity_stops(latitude, longitude, radius) do
     resp = HTTPoison.get!("https://api-v3.mbta.com/stops?filter%5Blatitude%5D=#{latitude}&filter%5Blongitude%5D=#{longitude}&filter%5Bradius%5D=#{radius}")
     body = Poison.decode!(resp.body)
-    nearestStops = Enum.map(body["data"], fn(x) -> x["attributes"]["name"] end) 
+    nearestStops = Enum.map(body["data"], 
+      fn(x) -> 
+        %{
+          "stop_name" => x["attributes"]["name"],
+          "stop_id" => x["id"]
+          }
+      end) 
   end
   
   """
@@ -190,7 +196,8 @@ defmodule Bustracker.MbtaConnectors do
     |> Enum.map(fn(x) -> Enum.map(x, fn(prediction) -> 
           [prediction["relationships"]["stop"]["data"]["id"] ,
            (prediction["attributes"]["arrival_time"]),
-           prediction["relationships"]["route"]["data"]["id"]] end) end)) 
+           prediction["relationships"]["route"]["data"]["id"],
+           prediction["relationships"]["trip"]["data"]["id"]] end) end)) 
   end
 
   """
@@ -227,14 +234,15 @@ defmodule Bustracker.MbtaConnectors do
   end
 
   """
-    GIVEN: a list of stops of form [[stopId, arrival_time, route_id]]
-    RETURNS: a map of the form [[stopName, arrival_time, route_id]
+    GIVEN: a list of stops of form [[stopId, arrival_time, route_id, tripId]]
+    RETURNS: a map of the form [[stopName, arrival_time, route_id, tripId]
   """
   def getSliceTripNames(lstOfStops, stopIdNameDict) do
     Enum.map(lstOfStops, 
       fn(x) -> %{ "stopName" => stopIdNameDict[Enum.at(x,0)],
                   "arrival_time" => extract_time(Enum.at(x, 1)),
-                  "route_id" => extract_time(Enum.at(x, 2)) }
+                  "route_id" => (Enum.at(x, 2)),
+                  "tripId" => (Enum.at(x, 3)) }
     end)
   end
 
