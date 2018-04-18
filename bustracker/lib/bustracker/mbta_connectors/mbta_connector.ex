@@ -35,6 +35,12 @@ defmodule Bustracker.MbtaConnectors do
       } end)  
   end
 
+  def get_proximity_stops(latitude, longitude, radius) do
+    resp = HTTPoison.get!("https://api-v3.mbta.com/stops?filter%5Blatitude%5D=#{latitude}&filter%5Blongitude%5D=#{longitude}&filter%5Bradius%5D=#{radius}")
+    body = Poison.decode!(resp.body)
+    nearestStops = Enum.map(body["data"], fn(x) -> x["attributes"]["name"] end) 
+  end
+  
   """
     returns the stop ID (String) for the given stop name
   """
