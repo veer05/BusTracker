@@ -32,11 +32,23 @@ let BusTracker = connect((state) => state)((props) => {
     window.location.reload();
   }
 
+  function printErrorMsg(){
+    console.log("<=================>")
+    console.log(props.error_msg)
+    if((props.error_msg != null)){
+      return(<div>
+        <h2> {props.error_msg} </h2>
+        <h3> Please try again!</h3>
+      </div>);
+    }
+  }
+
   console.log('This is inside props',props)
   if (props.token == null){
   	return (
   		<Router>
   			<div>	
+          {printErrorMsg()}
   				<Login />
   			</div>
   		</Router>

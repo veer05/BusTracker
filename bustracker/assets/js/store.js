@@ -106,6 +106,15 @@ function bus_list(state = [], action) {
   }
 }
 
+function error_msg(state = null, action) {
+  switch (action.type) {
+  case 'ERROR_MSG':
+    return action.error_msg;
+  default:
+    return state;
+  }
+}
+
 /*let empty_form = {
   user_id: "",
   body: "",
@@ -125,7 +134,7 @@ function root_reducer(state0, action) {
   // {posts, users, form} is ES6 shorthand for
   // {posts: posts, users: users, form: form}
   let reducer = combineReducers({ users, form, token, login, stops_nearby, bus_list, latitude, longitude
-    , allStops});
+    , allStops, error_msg});
   let state1 = reducer(state0, action);
   console.log("state1", state1);
   return deepFreeze(state1);

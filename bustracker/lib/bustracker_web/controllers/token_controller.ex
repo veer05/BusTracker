@@ -5,6 +5,7 @@ defmodule BustrackerWeb.TokenController do
   action_fallback BustrackerWeb.FallbackController
 
   def create(conn, %{"email" => email, "password" => pass}) do
+    IO.inspect('Error Type')
     IO.inspect(Bustracker.Users.get_and_auth_user(email, pass))
     with {:ok, %User{} = user} <- Bustracker.Users.get_and_auth_user(email, pass) do
       token = Phoenix.Token.sign(conn, "auth token", user.id)

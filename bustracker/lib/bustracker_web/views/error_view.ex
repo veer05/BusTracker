@@ -14,4 +14,17 @@ defmodule BustrackerWeb.ErrorView do
   def template_not_found(_template, assigns) do
     render "500.html", assigns
   end
+
+  def render("404.json", %{msg: msg}) do
+    %{
+      msg: msg,
+    }
+  end
+
+  def render("401.json", %{msg: msg}) do
+    %{
+      msg: msg,
+    }
+  end
+
 end

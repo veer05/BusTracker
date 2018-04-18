@@ -76,11 +76,20 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: (resp) => {
+        console.log("*****************INVALID USER WRONG BLOCK ENTERED")
         store.dispatch({
           type: 'SET_TOKEN',
           token: resp,
         });
       },
+      error: (resp) => {
+        console.log("*****************INVALID USER BLOCK ENTERED")
+        console.log(resp)
+        store.dispatch({
+          type: 'ERROR_MSG',
+          error_msg: resp.responseJSON.msg,
+        });
+      }
     });
   }
 

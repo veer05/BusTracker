@@ -38,6 +38,8 @@ let LoginForm = connect(({login}) => {return {login};})((props) => {
   }
 
   var FontAwesome = require('react-fontawesome')
+  console.log("ERROR MSGGGGGG ===============++++ ")
+  console.log(props)
   return <div style={{padding: "4ex"}}>
     <h3>Login</h3>
     <FormGroup>
