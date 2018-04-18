@@ -139,10 +139,9 @@ defmodule Bustracker.MbtaConnectors do
 
 
   def get_stop_name(stopID) do
-    stopObj = get_raw_stops 
-              |> Enum.filter(fn(x) -> x["id"] == stopID end)
-              |> Enum.at(0)
-    stopObj["attributes"]["name"]
+    resp = HTTPoison.get!("https://api-v3.mbta.com/stops/#{stopID}")
+    data = Poison.decode!(resp.body)
+    data["data"]["attributes"]["name"]
 
   end
 
