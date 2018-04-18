@@ -11,6 +11,12 @@ defmodule Bustracker.MbtaConnectors do
   """
     returns a map of all stops registered by MBTA
   """
+  def get_raw_stops_sorted() do
+    resp = HTTPoison.get!("https://api-v3.mbta.com/stops?sort=name&filter%5Broute_type%5D=3")
+    data = Poison.decode!(resp.body)
+    data["data"]
+  end
+  
   def get_raw_stops() do
     resp = HTTPoison.get!("https://api-v3.mbta.com/stops?filter%5Broute_type%5D=3")
     data = Poison.decode!(resp.body)
@@ -21,13 +27,12 @@ defmodule Bustracker.MbtaConnectors do
     returns all the stop names registered by MBTA
   """
   def get_stop_names() do
-    raw_stops = get_raw_stops()
-    
-    Enum.map(raw_stops, 
-    fn(x) -> %{
-      "stop_name" => x["attributes"]["name"], 
-      "stop_id" => x["id"]
-      } end)
+    get_raw_stops_sorted
+    |> Enum.map(
+       fn(x) -> %{
+        "stop_name" => x["attributes"]["name"], 
+        "stop_id" => x["id"]
+      } end)  
   end
 
   """
@@ -45,8 +50,11 @@ defmodule Bustracker.MbtaConnectors do
   """
    returns list of routes (in the form of route ids)
   """
-  def get_routes(stopName) do
-    stopID = get_stop_ID(stopName)
+  def get_routes_on_name(stopName) do
+    get_routes(get_stop_ID(stopName))
+  end
+
+  def get_routes(stopID) do
     resp = HTTPoison.get!("https://api-v3.mbta.com/routes?filter[stop]=#{stopID}&filter[type]=3")
     body = Poison.decode!(resp.body)
     body["data"]
@@ -57,19 +65,31 @@ defmodule Bustracker.MbtaConnectors do
     GIVEN: a stop name
     RETURNS: predictions for the entered bus stop
   """
-  def get_predictions(stopName) do
+  def get_predictions_on_name(stopName) do
     dict = getStopNameIdDict()
-    get_predictions_helper(dict[stopName]) 
+    get_predictions(dict[stopName]) 
   end 
+
+  def get_predictions(stopID) do
+    limit = 10
+    resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
+    IO.inspect(stopID)
+    IO.inspect("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
+    body = Poison.decode!(resp.body)
+    predictionsObj = body["data"]
+    
+    Enum.map(predictionsObj, fn(prediction) ->  get_fields(prediction) end)
+   
+  end
 
   """
   	GIVEN: source and destination stop names
     RETURNS: itenary list of all the predictions between source and destination
               with intermediate stops, arrival time and route id
   """
-  def get_route(sourceName, destinationName) do
+  def get_route_on_name(sourceName, destinationName) do
     dict = getStopNameIdDict
-    get_route_helper(dict[sourceName], dict[destinationName])
+    get_route(dict[sourceName], dict[destinationName])
   end
   
   """
@@ -92,18 +112,7 @@ defmodule Bustracker.MbtaConnectors do
 
   """
   	<============== HELPER FUNCTIONS ===========>
-  """  
-  def get_predictions_helper(stopID) do
-    limit = 10
-    resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
-    IO.inspect(stopID)
-    IO.inspect("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
-    body = Poison.decode!(resp.body)
-    predictionsObj = body["data"]
-    
-    Enum.map(predictionsObj, fn(prediction) ->  get_fields(prediction) end)
-   
-  end
+  """ 
   
 
   def get_fields(prediction) do 
@@ -150,16 +159,15 @@ defmodule Bustracker.MbtaConnectors do
     RETURNS: itenary list of all the predictions between source and destination
               with intermediate stops, arrival time and route id
   """
-  def get_route_helper(sourceId, destId) do
+  def get_route(sourceId, destId) do
     stopIdNameDict = getStopIdNameDict()
-    tripStops = Enum.map(get_predictions_helper(sourceId), 
+    tripStops = Enum.map(get_predictions(sourceId), 
       fn(prediction) ->
         tripId = prediction["tripId"]
         (get_predictions(tripId, destId)) end) 
     |> List.flatten
     |> getTripDetailsList()
 
-    
     sliceTripStops(tripStops, sourceId, destId)
     |> Enum.map(fn(x) -> getSliceTripNames(x, stopIdNameDict) end)
     
