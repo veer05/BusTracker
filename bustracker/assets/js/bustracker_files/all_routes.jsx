@@ -22,20 +22,27 @@ function All_Routes(props) {
 
 
   function submit(ev) {
+    let data = {};
+    data['display_flag'] = false;
+    let action = {
+      type: 'UPDATE_SRCDEST_FORM',
+      data: data,
+    };
+    props.dispatch(action);
     api.submit_stop(props.form);
   }
 
   console.log('In All routes Props', props)
   // TODO check on preload or on button click? Not sure
   if (props.stops_nearby.length > 0){
-  stops = _.map(props.stops_nearby, (uu, ii) => <option key={ii}>{uu}</option>);}
+  stops = _.map(props.stops_nearby, (uu, ii) => <option key={ii} value = {uu.stop_id}>{uu.stop_name}</option>);}
   
   return(   
     <div style={{padding: "4ex", float: "right", width: "60%"}}>
       <h3>Stops closer to you</h3>
       <FormGroup>
           <Label for="stop_names">Select Stops</Label>
-          <Input type="select" name="selected_stop" value={props.form.selected_stop} onChange={update}>
+          <Input type="select" name="selected_stop" value={props.form.stop_id} onChange={update}>
           <option></option>
               { stops }
           </Input>

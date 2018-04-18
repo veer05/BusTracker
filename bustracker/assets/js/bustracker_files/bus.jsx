@@ -12,7 +12,7 @@ export default function Bus(props) {
   return (
       
           <tr>
-          	<td><p> RouteNo-TODO</p></td>
+          	<td><p> { bus.route_id}</p></td>
           	<td><p> { bus.arrival_time } </p></td>
           	<td><p>{ bus.departure_time } </p></td>
           </tr>

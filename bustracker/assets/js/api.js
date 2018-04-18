@@ -76,7 +76,6 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: (resp) => {
-        console.log("*****************INVALID USER WRONG BLOCK ENTERED")
         store.dispatch({
           type: 'SET_TOKEN',
           token: resp,
@@ -92,6 +91,7 @@ class TheServer {
       }
     });
   }
+
 
   google_login(data){
     let token = {"user_name": data.profileObj.givenName, "user_id": data.profileObj.googleId,

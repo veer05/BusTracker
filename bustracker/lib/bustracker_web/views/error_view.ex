@@ -26,5 +26,4 @@ defmodule BustrackerWeb.ErrorView do
       msg: msg,
     }
   end
-
 end

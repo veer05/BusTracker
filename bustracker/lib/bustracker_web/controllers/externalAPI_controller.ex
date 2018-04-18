@@ -31,16 +31,7 @@ defmodule BustrackerWeb.ExternalAPIController do
   end
 
   def get_stop_names(conn, %{"latitude" => latitude, "longitude" => longitude, "radius" => radius}) do
-    IO.inspect('This is inside request')
-    IO.inspect(latitude)
-    IO.inspect(longitude)
-    resp = HTTPoison.get!("https://api-v3.mbta.com/stops?filter%5Blatitude%5D=#{latitude}&filter%5Blongitude%5D=#{longitude}&filter%5Bradius%5D=#{radius}")
-
-    IO.inspect("UUURRRLLLL")
-    IO.inspect("https://api-v3.mbta.com/stops?filter%5Blatitude%5D=#{latitude}&filter%5Blongitude%5D=#{longitude}&filter%5Bradius%5D=#{radius}")
-    body = Poison.decode!(resp.body)
-    IO.inspect(Enum.map(body["data"], fn(x) -> x["attributes"]["name"] end))
-    stops = Enum.map(body["data"], fn(x) -> x["attributes"]["name"] end) 
+    stops = Bustracker.MbtaConnectors.get_proximity_stops(latitude,longitude,radius)
     conn
       |> put_status(:created)
       |> render("nearest_stop.json", stops: stops)

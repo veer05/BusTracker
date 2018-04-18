@@ -5,6 +5,7 @@ import { NavItem } from 'reactstrap';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import api from '../api';
 
+
 function From_To_Form(props) {
 
   let stops;
@@ -15,7 +16,7 @@ function From_To_Form(props) {
     let data = {};
     data[tgt.attr('name')] = tgt.val();
     let action = {
-      type: 'UPDATE_FORM',
+      type: 'UPDATE_SRCDEST_FORM',
       data: data,
     };
     props.dispatch(action);
@@ -23,7 +24,14 @@ function From_To_Form(props) {
 
 
   function submit(ev) {
-    console.log('This is source and destination', props.form) 
+    let data = {};
+    data['display_flag'] = true;
+    let action = {
+      type: 'UPDATE_SRCDEST_FORM',
+      data: data,
+    };
+    props.dispatch(action);
+    console.log('This is source and destination', props.srcdest_form) 
     //api.submit_stop(props.form);
   }
 
@@ -35,12 +43,12 @@ function From_To_Form(props) {
     <div style={{padding: "2ex", float: "left"}}>
       <FormGroup>
           <Label for="allStops">Source</Label>
-          <Input type="select" name="source_stop" value={props.form.source_stop} onChange={update}>
+          <Input type="select" name="source_stop" value={props.srcdest_form.source_stop} onChange={update}>
           <option></option>
               { stops }
           </Input>
           <Label for="allStops">Destination</Label>
-          <Input type="select" name="destination_stop" value={props.form.destination_stop} onChange={update}>
+          <Input type="select" name="destination_stop" value={props.srcdest_form.destination_stop} onChange={update}>
           <option></option>
               { stops }
           </Input>
@@ -53,7 +61,7 @@ function From_To_Form(props) {
 
 function state2props(state) {
   return { 
-  form: state.form, 
+  srcdest_form: state.srcdest_form, 
   allStops: state.allStops,
   };
 }

@@ -106,6 +106,21 @@ function bus_list(state = [], action) {
   }
 }
 
+let empty_srcfrm = {
+  source_stop: "",
+  destination_stop: "",
+  display_flag: false,
+};
+
+function srcdest_form(state = empty_srcfrm, action) {
+  switch (action.type) {
+    case 'UPDATE_SRCDEST_FORM':
+      return Object.assign({}, state, action.data);
+    default:
+      return state;
+  }
+}
+
 function error_msg(state = null, action) {
   switch (action.type) {
   case 'ERROR_MSG':
@@ -114,11 +129,6 @@ function error_msg(state = null, action) {
     return state;
   }
 }
-
-/*let empty_form = {
-  user_id: "",
-  body: "",
-};*/
 
 function form(state = [], action) {
   switch (action.type) {
@@ -134,7 +144,7 @@ function root_reducer(state0, action) {
   // {posts, users, form} is ES6 shorthand for
   // {posts: posts, users: users, form: form}
   let reducer = combineReducers({ users, form, token, login, stops_nearby, bus_list, latitude, longitude
-    , allStops, error_msg});
+    , allStops, srcdest_form, error_msg});
   let state1 = reducer(state0, action);
   console.log("state1", state1);
   return deepFreeze(state1);

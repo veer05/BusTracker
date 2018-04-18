@@ -37,13 +37,20 @@ let BusTracker = connect((state) => state)((props) => {
     console.log(props.error_msg)
     if((props.error_msg != null)){
       return(<div>
-        <h2> {props.error_msg} </h2>
-        <h3> Please try again!</h3>
+        <p> {props.error_msg} </p>
+        <p> Please try again!</p>
       </div>);
     }
   }
 
+
+  let table;
   console.log('This is inside props',props)
+  if (props.srcdest_form.display_flag == true){
+  		table = <p> Congrats </p>
+  }else{
+  		table = <All_Bus busses={props.bus_list} />
+  }
   if (props.token == null){
   	return (
   		<Router>
@@ -67,17 +74,19 @@ let BusTracker = connect((state) => state)((props) => {
 				<div className="col-md-4">
 					<Src_To_Des />
 				</div>
-				<div className="col-md-8">
-					<div className="container">
-					<div className="row">
-	            		<All_Routes />
-	            		<All_Bus busses={props.bus_list} />
-	            	</div>
-	            	<div className="row">
-                  			<Map latitude={props.latitude} longitude={props.longitude}/>
-            		</div>
-            	</div>
-	          	</div>
+					<div className="col-md-8">
+						<div className="container">
+							<div className="row">
+		            			<All_Routes />
+		            		</div>
+		            		<div className = "row">
+		            			{ table }
+		            		</div>
+		            		<div className="row">
+	                  			<Map latitude={props.latitude} longitude={props.longitude}/>
+	            			</div>
+	            		</div>
+		          	</div>
 	        </div>
 			} />
           			Please Work
