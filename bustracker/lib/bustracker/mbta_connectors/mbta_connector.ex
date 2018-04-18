@@ -83,7 +83,7 @@ defmodule Bustracker.MbtaConnectors do
   end 
 
   def get_predictions(stopID) do
-    limit = 10
+    limit = 25
     resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
     IO.inspect(stopID)
     IO.inspect("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
@@ -150,6 +150,24 @@ defmodule Bustracker.MbtaConnectors do
               |> Enum.filter(fn(x) -> x["id"] == stopID end)
               |> Enum.at(0)
     stopObj["attributes"]["name"]
+  end
+
+  def get_predictions_for_tripId(tripId) do
+    resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?trip=#{tripId}")
+    data = Poison.decode!(resp.body)
+
+    dict = getStopIdNameDict
+    Enum.map(data["data"], 
+      fn(x) ->
+        if(x["attributes"]["arrival_time"] != nil) do
+          %{
+            "stop_name" => dict[x["relationships"]["stop"]["data"]["id"]],
+            "arrival_time" => extract_time(x["attributes"]["arrival_time"])
+          }
+        else
+          %{}
+        end
+      end)
   end
 
   def get_predictions(tripId, destId) do
