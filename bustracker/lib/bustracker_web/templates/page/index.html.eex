@@ -1,3 +1,13 @@
-<div id="root">
-  <p>Bus Tracker Application is being loaded Please Wait</p>
+<header>
+    <div class="row">
+    <img class="logo" src="/images/logo.png" alt="logo"/>
+    <h1>Bus Tracker</h1>
+    <img class="logor" src="/images/logo.png" alt="logo"/>
+    </div>
+</header>
+<div class="row mainrow">
+
+        <div id="root">
+            <p>Bus Tracker Application is being loaded Please Wait</p>
+        </div>
 </div>

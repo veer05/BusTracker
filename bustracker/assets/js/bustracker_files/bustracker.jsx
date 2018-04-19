@@ -27,10 +27,7 @@ let BusTracker = connect((state) => state)((props) => {
   let stops;
   if (props.stops_nearby.length > 0){
   stops = _.map(props.stops_nearby, (uu) => <option>{uu}</option>);}
-  function logout(){
-    sessionStorage.clear();
-    window.location.reload();
-  }
+
 
   function printErrorMsg(){
     console.log("<=================>")
@@ -53,22 +50,25 @@ let BusTracker = connect((state) => state)((props) => {
   }
   if (props.token == null){
   	return (
-  		<Router>
-  			<div>	
+      <Router>
+        <div className="row"> 
+        <div className="col-sm-3">
+        </div>
+        <div className="col-sm-6">
           {printErrorMsg()}
-  				<Login />
-  			</div>
-  		</Router>
-  	);
+          <Login />
+        </div>
+        <div className="col-sm-3">
+        </div>
+        </div>
+      </Router>
+    );
   }
   else{
   	return (
     	<Router>
         	<div>
           	<Nav token={props.token}/>
-          	<div className="btnlft">
-           		<Button onClick={logout}>Log Out</Button>
-			</div>
 			<Route path="/" exact={true} render={() => 
 			<div className="row">
 				<div className="col-md-4">

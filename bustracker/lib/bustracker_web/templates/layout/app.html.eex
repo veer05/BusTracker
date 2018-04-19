@@ -7,13 +7,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello Bustracker!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-  </head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBjXnIerb2mk11HdpsGuYEIDIeFOusHgE"></script>
+    <title>Bus Tracker App!</title>
+    <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
 
-  <body>
-    <div class="container">
+   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  
+   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBjXnIerb2mk11HdpsGuYEIDIeFOusHgE"></script>
+  </head>
+
+  <body class="background">
+    <div class="container-fluid">
     <%= if get_flash(@conn, :info) do %>
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <% end %>
@@ -25,6 +32,7 @@
       </main>
 
     </div> <!-- /container -->
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

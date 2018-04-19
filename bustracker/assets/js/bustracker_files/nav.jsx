@@ -1,10 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { NavItem } from 'reactstrap';
+import { Button } from 'reactstrap';
 
 export default function Nav(props) {
+  
+  function logout(){
+    sessionStorage.clear();
+    window.location.reload();
+  }  
+
   return (
-    <nav className="navbar navbar-dark bg-secondary navbar-expand">
+    <nav className="navbar navbar-expand navcustom">
       <span className="navbar-brand">
         BusTracker
       </span>
@@ -12,13 +19,13 @@ export default function Nav(props) {
         <NavItem>
           <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Track</NavLink>
         </NavItem>
-        <NavItem>
-          <NavLink to="/users" href="#" className="nav-link">Search History</NavLink>
-        </NavItem>
       </ul>
       <span className="navbar-text">
         {props.token.user_name}
       </span>
+      <div className="btn btn-primary">
+         <Button onClick={logout} className="btnleft">Log Out</Button>
+      </div>
     </nav>
   );
 }
