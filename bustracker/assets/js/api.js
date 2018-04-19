@@ -34,6 +34,26 @@ class TheServer {
     });
   }
 
+
+  // GETS THE BUS AT THE SOURCE BUSSTOP 
+  // AND DETINATION BUS STOP
+  submit_src_dest(data){
+    console.log('IN SOURCE DESTINATION',data)
+    $.ajax("api/v1/stop_names", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        console.log("Ela you src dest",resp.buslist)
+        store.dispatch({
+          type: 'CUSTOM_BUS_LIST',
+          buses: resp.buses,
+        });
+      },
+    });
+  }
+
   // Gets the stop that the user requested (In case there are multiple
   // there he might choose to see schedule of other bus-stop nearby)
   nearest_stops(data) {

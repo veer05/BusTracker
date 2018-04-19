@@ -106,6 +106,15 @@ function bus_list(state = [], action) {
   }
 }
 
+function custom_bus_list(state = [], action) {
+  switch (action.type) {
+  case 'CUSTOM_BUS_LIST':
+    return [...action.buses];
+  default:
+    return state;
+  }
+}
+
 let empty_srcfrm = {
   source_stop: "",
   destination_stop: "",
@@ -144,7 +153,7 @@ function root_reducer(state0, action) {
   // {posts, users, form} is ES6 shorthand for
   // {posts: posts, users: users, form: form}
   let reducer = combineReducers({ users, form, token, login, stops_nearby, bus_list, latitude, longitude
-    , allStops, srcdest_form, error_msg});
+    , allStops, srcdest_form, error_msg, custom_bus_list});
   let state1 = reducer(state0, action);
   console.log("state1", state1);
   return deepFreeze(state1);

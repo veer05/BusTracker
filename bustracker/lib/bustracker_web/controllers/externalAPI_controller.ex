@@ -37,5 +37,13 @@ defmodule BustrackerWeb.ExternalAPIController do
       |> render("nearest_stop.json", stops: stops)
   end
 
+  def get_stop_names(conn, %{"source_stop" => source_stop, "destination_stop" => destination_stop, "display_flag" => display_flag}) do
+    IO.inspect('Please come here')
+    buses = Bustracker.MbtaConnectors.get_route(source_stop, destination_stop)
+    conn
+      |> put_status(:created)
+      |> render("custom_bus.json", buses: buses)
+  end
+
 
 end

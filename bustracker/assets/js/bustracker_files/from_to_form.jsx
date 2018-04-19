@@ -32,12 +32,12 @@ function From_To_Form(props) {
     };
     props.dispatch(action);
     console.log('This is source and destination', props.srcdest_form) 
-    //api.submit_stop(props.form);
+    api.submit_src_dest(props.srcdest_form);
   }
 
   console.log('In SRC_TO_DESTINATION Props', props)
   // TODO check on preload or on button click? Not sure
-  stops = _.map(props.allStops, (uu, ii) => <option key={ii}>{uu.stop_name}</option>);
+  stops = _.map(props.allStops, (uu, ii) => <option key={ii} value= {uu.stop_id}>{uu.stop_name}</option>);
   
   return(   
     <div style={{padding: "2ex", float: "left"}}>

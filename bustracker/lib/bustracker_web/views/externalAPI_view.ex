@@ -26,4 +26,10 @@ defmodule BustrackerWeb.ExternalAPIView do
       allStops: stop_names,
     }
   end
+
+  def render("custom_bus.json", %{ buses: buses}) do
+    %{
+      buses: buses,
+    }
+  end
 end

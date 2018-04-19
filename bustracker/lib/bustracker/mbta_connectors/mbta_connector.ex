@@ -159,14 +159,12 @@ defmodule Bustracker.MbtaConnectors do
     dict = getStopIdNameDict
     Enum.map(data["data"], 
       fn(x) ->
-        if(x["attributes"]["arrival_time"] != nil) do
+        
           %{
             "stop_name" => dict[x["relationships"]["stop"]["data"]["id"]],
             "arrival_time" => extract_time(x["attributes"]["arrival_time"])
           }
-        else
-          %{}
-        end
+        
       end)
   end
 
@@ -292,12 +290,16 @@ defmodule Bustracker.MbtaConnectors do
     RETURNS: the HH:MM fields exracted -> "00:00"
   """
   def extract_time(fullDate) do
-    fullDate
-     |> String.split("T")
-      |> Enum.at(1)
-       |> String.split("-")
-        |> Enum.at(0)
-         |> String.slice(0, 5)
+    if fullDate != nil do
+      fullDate
+       |> String.split("T")
+        |> Enum.at(1)
+         |> String.split("-")
+          |> Enum.at(0)
+           |> String.slice(0, 5)
+    else
+      "--:--"
+    end
   end
 
 end
