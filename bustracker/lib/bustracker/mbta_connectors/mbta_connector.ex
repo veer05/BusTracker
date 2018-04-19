@@ -95,7 +95,7 @@ defmodule Bustracker.MbtaConnectors do
   end
 
   """
-  	GIVEN: source and destination stop names
+    GIVEN: source and destination stop names
     RETURNS: itenary list of all the predictions between source and destination
               with intermediate stops, arrival time and route id
   """
@@ -123,7 +123,7 @@ defmodule Bustracker.MbtaConnectors do
   end
 
   """
-  	<============== HELPER FUNCTIONS ===========>
+    <============== HELPER FUNCTIONS ===========>
   """ 
   
 
@@ -188,6 +188,8 @@ defmodule Bustracker.MbtaConnectors do
   """
   def get_route(sourceId, destId) do
     stopIdNameDict = getStopIdNameDict()
+    sourceName = stopIdNameDict[sourceId]
+    destName = stopIdNameDict[destId]
     tripStops = Enum.map(get_predictions(sourceId), 
       fn(prediction) ->
         tripId = prediction["tripId"]
@@ -198,9 +200,18 @@ defmodule Bustracker.MbtaConnectors do
     if (length tripStops) == 0 do
       [%{}]
     else
-      sliceTripStops(tripStops, sourceId, destId)
+      resultMap = sliceTripStops(tripStops, sourceId, destId)
       |> Enum.map(fn(x) -> getSliceTripNames(x, stopIdNameDict) end)
+      
+      Enum.filter(resultMap ,fn(eachTrip) -> checkIfValid(eachTrip, sourceName, destName) end)
     end  
+  end
+
+  def checkIfValid(lst, expctdSrc, expctdDest) do
+    firstMap = Enum.at(lst, 0)
+    
+    lastMap = Enum.at(lst, (length lst) - 1)
+    (firstMap["stopName"] == expctdSrc) and (lastMap["stopName"] == expctdDest)
   end
 
   """
@@ -305,5 +316,4 @@ defmodule Bustracker.MbtaConnectors do
       "--:--"
     end
   end
-
 end
