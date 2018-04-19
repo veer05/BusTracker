@@ -195,9 +195,12 @@ defmodule Bustracker.MbtaConnectors do
     |> List.flatten
     |> getTripDetailsList()
 
-    sliceTripStops(tripStops, sourceId, destId)
-    |> Enum.map(fn(x) -> getSliceTripNames(x, stopIdNameDict) end)
-    
+    if (length tripStops) == 0 do
+      [%{}]
+    else
+      sliceTripStops(tripStops, sourceId, destId)
+      |> Enum.map(fn(x) -> getSliceTripNames(x, stopIdNameDict) end)
+    end  
   end
 
   """
@@ -229,8 +232,9 @@ defmodule Bustracker.MbtaConnectors do
     helper utility for sliceTripStops
   """
   def slicingHelper(lst, from, to, flag, resultList) do
-    IO.inspect(hd lst)
     cond do
+     (length lst) == 0 ->
+      resultList
      (flag == 0) and (Enum.at((hd lst), 0) == from) ->
         resultList = resultList ++ [(hd lst)]
         slicingHelper((tl lst), from, to, 1, resultList)
