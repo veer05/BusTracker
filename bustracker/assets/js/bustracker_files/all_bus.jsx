@@ -6,6 +6,7 @@ export default function All_Bus(params) {
   let busses = _.map(params.busses, (pp, ii) => <Bus key={ii} bus={pp} />);
   return( <div className="tablestart">
     <p>Buses Arriving at {params.stop}</p>
+    <div className="table-responsive">
     <table className="tablestyle">
   
   <tbody>
@@ -16,5 +17,6 @@ export default function All_Bus(params) {
     </tr>
       { busses }
     </tbody>
-  </table></div>);
+  </table></div>
+  </div>);
 }

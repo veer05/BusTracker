@@ -1,4 +1,4 @@
-  /* This file is for your main application css. */
+    /* This file is for your main application css. */
 
   @import "bootstrap";
 
@@ -13,6 +13,7 @@
   $main: #1ab188;
   $main-light: lighten($main,5%);
   $main-dark: darken($main,5%);
+
 
   $gray-light: #a0b3b0;
   $gray: #ddd;
@@ -45,9 +46,12 @@
     width:20%;
     height:15%;
   }
+  
+  .tablestyle{
+      background-color: aliceblue;
+    }
 
-
-
+  /* for desktop */
   @media screen and (min-width: 600px){
     /* SignIn form */
 
@@ -109,7 +113,6 @@
     .tab-content > div:last-child {
       display:none;
     }
-
 
 
     h4 {
@@ -214,7 +217,11 @@
       display:block;
       width:100%;
     }
-
+    
+    .showright
+    {
+      display:none;
+    }
 
     .dispcard{
       border-radius: 8%;
@@ -473,6 +480,10 @@
       border-radius:$br;
       box-shadow:0 4px 10px 4px rgba($form-bg,.3);
     }
+    .header{
+      display: none;
+
+  }
 
     .tab-group {
       list-style:none;
@@ -734,11 +745,14 @@
       padding: 8%;
       border: 5px solid black;
       border-radius: 22px;
-      background-color: green;
+      background-color: aliceblue;
       
     }
 
-
+    h3
+    {
+      display:none;
+    }
     .required
     {
       color:red;
@@ -825,7 +839,8 @@
 
     .rightnavlinks
     {
-      padding-top:1.5%;
+      display:none;
+      /*padding-top:1.5%;*/
       
     }
 

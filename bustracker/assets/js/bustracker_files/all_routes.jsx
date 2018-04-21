@@ -35,7 +35,7 @@ function All_Routes(props) {
   console.log('In All routes Props', props)
   // TODO check on preload or on button click? Not sure
   if (props.stops_nearby.length > 0){
-  stops = _.map(props.stops_nearby, (uu, ii) => <option key={ii} value = {uu.stop_id}>{uu.stop_name}</option>);}
+  stops = _.map(props.stops_nearby, (uu) => <option value = {uu.stop_id}>{uu.stop_name}</option>);}
   
   return(   
     <div className="sourceDest">

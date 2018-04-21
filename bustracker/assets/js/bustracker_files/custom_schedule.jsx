@@ -11,7 +11,8 @@ function Schedule(params) {
 export default function Custom_Schedule(params) {
   console.log('This is custom_schdule params',params)
   let buses = _.map(params.bus, (uu,ii) => <Schedule key={ii} schedules={uu} />);
-  return( <div className="tablestart">
+  return( <div className="table-responsive">
+    <div className="tablestart">
     <p>Bus Schedule</p>
     <table className="tablestyle">
   
@@ -22,5 +23,6 @@ export default function Custom_Schedule(params) {
     </tr>
       { buses }
     </tbody>
-  </table></div>);
+  </table></div>
+  </div>);
 }

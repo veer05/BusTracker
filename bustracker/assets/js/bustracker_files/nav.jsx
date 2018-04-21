@@ -17,6 +17,7 @@ export default function Nav(props) {
             <div className="row">
               <img src="/images/logo.png" className="logo" alt="logo" />
               <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Track</NavLink>
+               <p className="showright"><Button onClick={logout} className="">Log Out</Button></p>
            </div>
            </div>
            <div className="col-sm-6 centernavlinks">
@@ -30,7 +31,7 @@ export default function Nav(props) {
                <h3>{props.token.user_name}</h3>
                </div>
                <div className="col-sm-4">
-               <p className="showright"><Button onClick={logout} className="">Log Out</Button></p>
+               <p><Button onClick={logout} className="">Log Out</Button></p>
                </div>
 
                </div>

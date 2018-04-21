@@ -32,12 +32,30 @@ function From_To_Form(props) {
     };
     props.dispatch(action);
     console.log('This is source and destination', props.srcdest_form) 
+    if (props.srcdest_form.source_stop == ""){
+       alert('Source cannot be empty')
+    }
+    else if (props.srcdest_form.source_stop == "" && props.srcdest_form.destination_stop == ""){
+      alert('Source and destination cannot be empty, please make a valid selection')
+    }
+    else if (props.srcdest_form.destination_stop == ""){
+      let data = {};
+      data['display_flag'] = false;
+      let action = {
+      type: 'UPDATE_SRCDEST_FORM  ',
+      data: data,
+      };
+    props.dispatch(action);
+      api.submit_stop({selected_stop: props.srcdest_form.source_stop})
+    }
+    else{
     api.submit_src_dest(props.srcdest_form);
+    }
   }
 
   console.log('In SRC_TO_DESTINATION Props', props)
   // TODO check on preload or on button click? Not sure
-  stops = _.map(props.allStops, (uu, ii) => <option key={ii} value= {uu.stop_id}>{uu.stop_name}</option>);
+  stops = _.map(props.allStops, (uu) => <option value= {uu.stop_id}>{uu.stop_name}</option>);
   
   return(   
     <div className="sourceDest">
