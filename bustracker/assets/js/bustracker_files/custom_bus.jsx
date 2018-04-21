@@ -12,6 +12,7 @@ export default function Custom_Bus(params) {
 		<th>Source Stop Name</th>
     <th>Destination Stop Name</th>
     <th>Destination Arrival Time</th>
+    <th>Schedule</th>
   	</tr>
     	{ busses }
    	</tbody>

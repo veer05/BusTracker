@@ -14,7 +14,10 @@ export default function Bus(props) {
 	let bus = props.bus;
 	if (bus.noBus){
 		return(
-		<p> {bus.message}</p>);
+    <tr>
+        <td colspan="5"> {bus.message} </td>
+    </tr>
+    );
 	}
 	else{
   return (
@@ -22,7 +25,6 @@ export default function Bus(props) {
           <tr>
           	<td><p> { bus.route_id}</p></td>
           	<td><p> { bus.arrival_time } </p></td>
-          	<td><p>{ bus.departure_time } </p></td>
           	<td><button className= "btn btn-primary" onClick={get_Schedule}> <NavLink to="/schedule" href="#" className="textcolor">Get Schedule</NavLink></button></td>
           </tr>
       

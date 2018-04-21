@@ -23,7 +23,10 @@ function SingleCustomBus(props) {
 	let bus = props.bus;
 	if (bus.noBus){
 		return(
-		<p> {bus.message}</p>);
+		<tr>
+        <td colspan="6"> {bus.message} </td>
+    </tr>
+    );
 	}
 	else{
   return (

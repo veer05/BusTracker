@@ -12,7 +12,6 @@ export default function All_Bus(params) {
     <tr>
       <th>Route No.</th>
       <th>Arrival Time</th>
-      <th>Departure Time</th>
       <th>Check Schedule</th>
     </tr>
       { busses }
