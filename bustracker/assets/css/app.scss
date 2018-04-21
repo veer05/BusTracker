@@ -51,6 +51,14 @@
       background-color: aliceblue;
     }
 
+    .mainHeader
+    {
+      font-family: 'Sofia';
+      font-size: 3rem;
+      font-weight:bold;
+      text-align: center;
+    }
+
   /* for desktop */
   @media screen and (min-width: 600px){
     /* SignIn form */

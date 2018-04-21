@@ -31,7 +31,7 @@ function From_To_Form(props) {
       data: data,
     };
     props.dispatch(action);
-    console.log('This is source and destination', props.srcdest_form) 
+    //console.log('This is source and destination', props.srcdest_form) 
     if (props.srcdest_form.source_stop == ""){
        alert('Source cannot be empty')
     }
@@ -53,7 +53,7 @@ function From_To_Form(props) {
     }
   }
 
-  console.log('In SRC_TO_DESTINATION Props', props)
+  //console.log('In SRC_TO_DESTINATION Props', props)
   // TODO check on preload or on button click? Not sure
   stops = _.map(props.allStops, (uu) => <option value= {uu.stop_id}>{uu.stop_name}</option>);
   

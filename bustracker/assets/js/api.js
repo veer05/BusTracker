@@ -25,7 +25,6 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: (resp) => {
-        console.log("Ela you beautiful sob",resp.buslist)
         store.dispatch({
           type: 'BUS_LIST',
           buslist: resp.buslist,
@@ -38,14 +37,13 @@ class TheServer {
   // GETS THE BUS AT THE SOURCE BUSSTOP 
   // AND DETINATION BUS STOP
   submit_src_dest(data){
-    console.log('IN SOURCE DESTINATION',data)
+    //console.log('IN SOURCE DESTINATION',data)
     $.ajax("api/v1/stop_names", {
       method: "post",
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: (resp) => {
-        console.log("Ela you src dest",resp.buslist)
         store.dispatch({
           type: 'CUSTOM_BUS_LIST',
           buses: resp.buses,
@@ -63,7 +61,6 @@ class TheServer {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: (resp) => {
-        console.log("Ela you beautiful sob",resp.nearby_stops)
         store.dispatch({
           type: 'NEARBY_STOPS',
           nearby_stops: resp.nearby_stops,
@@ -90,7 +87,6 @@ class TheServer {
   }
 
   get_schedule(data) {
-    console.log('this is schedule',data);
     $.ajax("api/v1/stop_names", {
       method: "post",
       dataType: "json",
@@ -118,8 +114,6 @@ class TheServer {
         });
       },
       error: (resp) => {
-        console.log("*****************INVALID USER BLOCK ENTERED")
-        console.log(resp)
         store.dispatch({
           type: 'ERROR_MSG',
           error_msg: resp.responseJSON.msg,

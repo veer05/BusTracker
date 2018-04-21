@@ -6,8 +6,8 @@ defmodule BustrackerWeb.ExternalAPIController do
 
   def get_stop_names(conn, %{"request_stop" => request_stop}) do
   	stop_names = Bustracker.MbtaConnectors.get_stop_names()
-   	IO.inspect("inside the controller MBTA ....")
-  	IO.inspect(stop_names)
+   	#IO.inspect("inside the controller MBTA ....")
+  	#IO.inspect(stop_names)
     conn
       |> put_status(:created)
       |> render("allStop_list.json", allStops: stop_names)
@@ -38,9 +38,9 @@ defmodule BustrackerWeb.ExternalAPIController do
   end
 
   def get_stop_names(conn, %{"source_stop" => source_stop, "destination_stop" => destination_stop, "display_flag" => display_flag}) do
-    IO.inspect('Please come here')
+   #IO.inspect('Please come here')
     buses = Bustracker.MbtaConnectors.get_route(source_stop, destination_stop)
-    IO.inspect(buses)
+    #IO.inspect(buses)
     if ( buses == [%{}] || buses == []) do
       buses = [%{noBus: "True", message: "No Bus running at the moment, from the source to the destination"}]
         conn

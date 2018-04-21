@@ -7,10 +7,10 @@ export default function Bus(props) {
 
   function get_Schedule(){
       api.get_schedule({"tripid" :props.bus.tripId})
-      console.log('I am coming in',props.bus.tripId)
+      //console.log('I am coming in',props.bus.tripId)
   }
 
-  console.log('this is bus',props)
+ // console.log('this is bus',props)
   let bus = props.bus;
   if (bus.noBus){
     return(

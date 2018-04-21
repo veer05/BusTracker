@@ -14,7 +14,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 let LoginForm = connect(({login}) => {return {login};})((props) => {
 
 
-console.log("this is the props",props);
+//console.log("this is the props",props);
 
 
 
@@ -91,9 +91,9 @@ console.log("this is the props",props);
  
   
   function create_token(ev) {
-    console.log("in create token");
+    //console.log("in create token");
     api.submit_login(props.login);
-    console.log(props.login);
+    //console.log(props.login);
   }
 
   //attribution = https://stackoverflow.com/questions/16424659check-if-a-string-contains-an-email-address
@@ -120,7 +120,7 @@ console.log("this is the props",props);
       alert('Please enter your mobile number')
     }
     else {
-      console.log("in create user");
+      //console.log("in create user");
       let data = {};
       data['display_flag'] = true;
         props.dispatch({
@@ -133,12 +133,12 @@ console.log("this is the props",props);
   }
 
   const responseGoogle = (response) => {
-  console.log(response);
+  //console.log(response);
   api.google_login(response);
   }
 
   const FailresponseGoogle = (response) => {
-  console.log('Pop Up Closed');
+  //console.log('Pop Up Closed');
   }
 
   var FontAwesome = require('react-fontawesome');
@@ -233,7 +233,7 @@ console.log("this is the props",props);
 
             <p className="googleButton">
             <GoogleLogin
-             clientId={'1006692023654-ii7vqsoj0l55hqtkpulvifvr43tdj02l.apps.googleusercontent.com'}
+             clientId={'142216964769-fcocsa3vmgk2l42komovekb65l93uhaf.apps.googleusercontent.com'}
              onSuccess={responseGoogle}
              onFailure={FailresponseGoogle}>
              <p className="loginBtn loginBtn--google">Login with Google</p>

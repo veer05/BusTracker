@@ -85,8 +85,8 @@ defmodule Bustracker.MbtaConnectors do
   def get_predictions(stopID) do
     limit = 25
     resp = HTTPoison.get!("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
-    IO.inspect(stopID)
-    IO.inspect("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
+    #IO.inspect(stopID)
+    #IO.inspect("https://api-v3.mbta.com/predictions?page[limit]=#{limit}&filter[stop]=#{stopID}")
     body = Poison.decode!(resp.body)
     predictionsObj = body["data"]
     

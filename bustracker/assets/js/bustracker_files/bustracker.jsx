@@ -7,7 +7,7 @@ import Nav from './nav';
 import All_Routes from './all_routes';
 import All_Bus from './all_bus';
 import Login from './login';
-import Users from './users';
+import Schedules from './schedules';
 import Src_To_Des from './from_to_form';
 import api from '../api';
 import Map from './map'
@@ -20,20 +20,20 @@ export default function bustracker_init(store) {
       <BusTracker state={store.getState()} />
     </Provider>,
     document.getElementById('root'),
-    console.log('this works',store.getState().latitude)
+    //console.log('this works',store.getState().latitude)
   );
 }
 
 let BusTracker = connect((state) => state)((props) => { 
-	console.log('this is bustracker',props)
+	//console.log('this is bustracker',props)
   let stops;
   if (props.stops_nearby.length > 0){
   stops = _.map(props.stops_nearby, (uu) => <option>{uu}</option>);}
 
 
   function printErrorMsg(){
-    console.log("<=================>")
-    console.log(props.error_msg)
+   // console.log("<=================>")
+    //console.log(props.error_msg)
     if((props.error_msg != null)){
       return(<div>
         <p> {props.error_msg} </p>
@@ -43,7 +43,7 @@ let BusTracker = connect((state) => state)((props) => {
 
 
   let table;
-  console.log('This is inside props',props)
+  //console.log('This is inside props',props)
   if (props.srcdest_form.display_flag == true){
   		table = <Custom_Bus busses={props.custom_bus_list}/>
   }else{
@@ -59,9 +59,11 @@ let BusTracker = connect((state) => state)((props) => {
   	return (
       <Router>
         <div className="row"> 
+
         <div className="col-sm-3">
         </div>
         <div className="col-sm-6">
+        <div className="mainHeader">BUS TRACKER</div>
           {printErrorMsg()}
           <Login />
         </div>
@@ -115,7 +117,7 @@ let BusTracker = connect((state) => state)((props) => {
 	        </div>
 			} />
           	<Route path="/schedule" exact={true} render={() =>
-           	 <Users users={props.schedule} />
+           	 <Schedules schedule={props.schedule} />
           	} />
             <Route path="/customschedule" exact={true} render={() =>
              <Custom_Schedule bus={props.custom_schedule} />

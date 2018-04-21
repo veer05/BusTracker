@@ -19,14 +19,14 @@ defmodule BustrackerWeb.FallbackController do
   end
 
   def call(conn, {:error, "invalid user-identifier"}) do
-    IO.inspect('Here')
+    #IO.inspect('Here')
     conn
     |> put_status(:not_found)
     |> render(BustrackerWeb.ErrorView, "404.json", msg: "User Invalid")
   end
 
   def call(conn, {:error, "invalid password"}) do
-    IO.inspect('Here')
+    #IO.inspect('Here')
     conn
     |> put_status(:not_found)
     |> render(BustrackerWeb.ErrorView, "401.json", msg: "Credentials mismatch. Please check your email / password");

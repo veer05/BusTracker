@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function User(params) {
+function Schedule(params) {
   return(<tr>
-            <td><p> { params.user.stop_name}</p></td>
-            <td><p> { params.user.arrival_time} </p></td>
+            <td><p> { params.schedule.stop_name}</p></td>
+            <td><p> { params.schedule.arrival_time} </p></td>
             </tr>); ;
 }
 
-export default function Users(params) {
-  console.log('This is users params',params)
-  let users = _.map(params.users, (uu,ii) => <User key={ii} user={uu} />);
+export default function Schedules(params) {
+  //console.log('This is users params',params)
+  let schedule = _.map(params.schedule, (uu,ii) => <Schedule key={ii} schedule={uu} />);
   return( <div className="table-responsive">
     <div className="tablestart">
    <p>Bus Schedule</p>
@@ -21,7 +21,7 @@ export default function Users(params) {
       <th>Stop Name</th>
       <th>Arrival Time</th>
     </tr>
-      { users }
+      { schedule }
     </tbody>
   </table>
   </div>

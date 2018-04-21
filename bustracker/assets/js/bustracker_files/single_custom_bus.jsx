@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 
 function SingleCustomBus(props) {
   function get_Schedule(){
-      console.log('I am coming in single custom bus',props)
+      //console.log('I am coming in single custom bus',props)
       let data = {};
       data['custom_schedule'] = props.bus;
       let action = {
@@ -19,7 +19,7 @@ function SingleCustomBus(props) {
     props.dispatch(action);
   }
 
-  console.log('this is bus',props)
+  //console.log('this is bus',props)
   let bus = props.bus;
   if (bus.noBus){
     return(

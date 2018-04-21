@@ -106,10 +106,10 @@ function schedule(state = [], action) {
 //************************************
 
 function custom_schedule(state = [], action) {
-  console.log('Before Success',action)
+ // console.log('Before Success',action)
   switch (action.type) {
   case "UPDATE_CUSTOM_SCHEDULE":
-    console.log('Success', action.data.custom_schedule)
+    //console.log('Success', action.data.custom_schedule)
     return [...action.data.custom_schedule];
   default:
     return state;
@@ -179,13 +179,13 @@ function form(state = [], action) {
 }
 
 function root_reducer(state0, action) {
-  console.log("reducer", action);
+  //console.log("reducer", action);
   // {posts, users, form} is ES6 shorthand for
   // {posts: posts, users: users, form: form}
   let reducer = combineReducers({ users, form, token, login, stops_nearby, bus_list, latitude, longitude
     , allStops, srcdest_form, error_msg, custom_bus_list, schedule, custom_schedule});
   let state1 = reducer(state0, action);
-  console.log("state1", state1);
+  //console.log("state1", state1);
   return deepFreeze(state1);
 };
 

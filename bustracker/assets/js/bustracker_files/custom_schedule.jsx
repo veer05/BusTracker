@@ -9,7 +9,7 @@ function Schedule(params) {
 }
 
 export default function Custom_Schedule(params) {
-  console.log('This is custom_schdule params',params)
+  //console.log('This is custom_schdule params',params)
   let buses = _.map(params.bus, (uu,ii) => <Schedule key={ii} schedules={uu} />);
   return( <div className="table-responsive">
     <div className="tablestart">
