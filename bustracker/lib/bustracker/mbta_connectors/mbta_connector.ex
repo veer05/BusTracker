@@ -112,12 +112,11 @@ defmodule Bustracker.MbtaConnectors do
   def getTripDetails(tripId) do
     resp = HTTPoison.get!("https://api-v3.mbta.com/schedules?filter%5Btrip%5D=#{tripId}")
     data = Poison.decode!(resp.body)
-    dict = getStopIdNameDict()
 
     Enum.map(data["data"], 
             fn(x) -> 
               %{"arrival_time" => extract_time(x["attributes"]["arrival_time"]),
-                "stop_name" => dict[x["relationships"]["stop"]["data"]["id"]]
+                "stop_name" => get_stop_name(x["relationships"]["stop"]["data"]["id"])
               }
             end)
   end
