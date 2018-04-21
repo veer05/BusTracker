@@ -96,17 +96,40 @@ console.log("this is the props",props);
     console.log(props.login);
   }
 
-  function create_user(ev) {
-    console.log("in create user");
-    let data = {};
-    data['display_flag'] = true;
-      props.dispatch({
-      type: 'UPDATE_LOGIN_FORM',
-      data: data,
-    });
-    api.submit_user(props.login);
-    console.log(props.login);
+  //attribution = https://stackoverflow.com/questions/16424659check-if-a-string-contains-an-email-address
+  function checkIfEmailInString(text) { 
+    var re = /(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+    return re.test(text);
+  }
 
+  function create_user(ev) {
+    
+    if (props.login.new_user_name == ""){
+      alert('Name cannot be blank, Please enter name')
+    }
+    else if (props.login.new_user_email == "" || !checkIfEmailInString(props.login.new_user_email)){
+      alert('Please enter a valid email id')
+    }
+    else if (props.login.new_user_pass == "" || props.login.new_user_pass.length < 8){
+      alert('Please enter atleast 8 digits for password')
+    }
+    else if (props.login.new_user_confpass != props.login.new_user_pass){
+      alert('The password entered do not match')
+    }
+    else if (props.login.new_user_mob == ""){
+      alert('Please enter your mobile number')
+    }
+    else {
+      console.log("in create user");
+      let data = {};
+      data['display_flag'] = true;
+        props.dispatch({
+        type: 'UPDATE_LOGIN_FORM',
+        data: data,
+      });
+      api.submit_user(props.login);
+      alert('User Created Successfully')
+    }
   }
 
   const responseGoogle = (response) => {
