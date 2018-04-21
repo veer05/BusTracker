@@ -16,7 +16,7 @@ export default function Map(props) {
   return (
     <div className="mapBorder">
         <GoogleMapExample
-          containerElement={ <div style={{ height: `700px`, width: '700px' }} /> }
+          containerElement={ <div className="mapWidth" /> }
           mapElement={ <div style={{ height: `100%` }} /> }
         />
     </div>
