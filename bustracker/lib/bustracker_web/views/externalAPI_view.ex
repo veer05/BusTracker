@@ -32,4 +32,11 @@ defmodule BustrackerWeb.ExternalAPIView do
       buses: buses,
     }
   end
+  
+  def render("schedule.json", %{ schedule: schedule}) do
+    %{
+      schedule: schedule,
+    }
+  end
+
 end

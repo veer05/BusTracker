@@ -45,5 +45,12 @@ defmodule BustrackerWeb.ExternalAPIController do
       |> render("custom_bus.json", buses: buses)
   end
 
+  def get_stop_names(conn, %{"tripid" => tripid}) do
+    schedule = Bustracker.MbtaConnectors.getTripDetails(tripid)
+    conn
+      |> put_status(:created)
+      |> render("schedule.json", schedule: schedule)
+  end
+
 
 end

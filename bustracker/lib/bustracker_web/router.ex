@@ -17,7 +17,8 @@ defmodule BustrackerWeb.Router do
     pipe_through :browser # Use the default browser stack
     
     get "/", PageController, :index
-    get "/users", PageController, :index
+    get "/schedule", PageController, :index
+    get "/customschedule", PageController, :index
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete
   end

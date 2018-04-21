@@ -38,16 +38,17 @@ function All_Routes(props) {
   stops = _.map(props.stops_nearby, (uu, ii) => <option key={ii} value = {uu.stop_id}>{uu.stop_name}</option>);}
   
   return(   
-    <div style={{padding: "4ex", float: "right", width: "60%"}}>
-      <h3>Stops closer to you</h3>
+    <div className="sourceDest">
+      <h4 className="formText">Bus stops less than a mile from you</h4>
       <FormGroup>
-          <Label for="stop_names">Select Stops</Label>
+           <div className="formFields">
           <Input type="select" name="selected_stop" value={props.form.stop_id} onChange={update}>
-          <option></option>
+          <option>Source*</option>
               { stops }
           </Input>
+          </div>
       </FormGroup>
-      <Button onClick={submit} color="primary">Check this Stop</Button> &nbsp;
+      <Button onClick={submit} color="primary">Lemme Know</Button> &nbsp;
     </div>);
 }
 

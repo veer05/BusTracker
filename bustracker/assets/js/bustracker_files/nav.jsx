@@ -11,21 +11,32 @@ export default function Nav(props) {
   }  
 
   return (
-    <nav className="navbar navbar-expand navcustom">
-      <span className="navbar-brand">
-        BusTracker
-      </span>
-      <ul className="navbar-nav mr-auto">
-        <NavItem>
-          <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Track</NavLink>
-        </NavItem>
-      </ul>
-      <span className="navbar-text">
-        {props.token.user_name}
-      </span>
-      <div className="btn btn-primary">
-         <Button onClick={logout} className="btnleft">Log Out</Button>
-      </div>
-    </nav>
+    <div className="row navlist">
+        <div className="row">
+           <div className="col-sm-3 leftnavlinks navright">
+            <div className="row">
+              <img src="/images/logo.png" className="logo" alt="logo" />
+              <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Track</NavLink>
+           </div>
+           </div>
+           <div className="col-sm-6 centernavlinks">
+           <div className="row">
+              <div className="header">BUS TRACKER</div>
+           </div> 
+           </div>
+           <div className="col-sm-3 rightnavlinks">
+               <div className="row">
+               <div className="col-sm-8">
+               <h3>{props.token.user_name}</h3>
+               </div>
+               <div className="col-sm-4">
+               <p className="showright"><Button onClick={logout} className="">Log Out</Button></p>
+               </div>
+
+               </div>
+           </div>
+        </div>
+  
+    </div>
   );
 }

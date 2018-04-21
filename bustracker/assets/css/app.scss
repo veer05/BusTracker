@@ -22,12 +22,6 @@ $normal: 400;
 $bold: 600;
 $br: 4px;
 
-
-
-
-
-
-
 body { 
      font-size: 20pt;
      
@@ -41,39 +35,15 @@ body {
 
  }
 
-header{
-  align-items: center;
-  display:inline;
-  background-color:white;
-}
-header h1 {
-  text-align:center;
-  margin:0px auto;
-  font-size:75px;
-  color:darkblue;
-  font-family:"serif";
+.header{
+  font-family: 'Sofia';
+  font-size: 32px;
   font-weight:bold;
-  text-transform: uppercase;
 }
-
-
 
 .logo{
-  width:10%;
-  height:10%;
-  margin-left:5%;
-}
-
-.logor{
-  width:10%;
-  height:10%;
-    margin-right:5%;
-}
-
-.btnleft
-{
-  font-size:30px;
-  color:white;
+  width:20%;
+  height:15%;
 }
 
 
@@ -245,8 +215,8 @@ textarea {
 
 
 .dispcard{
-	border-radius: 8%;
-	margin: 4%;
+  border-radius: 8%;
+  margin: 4%;
 }
 
 
@@ -324,7 +294,7 @@ body { padding: 2em; }
 
 .mainrow
 {
-  padding-top:5%;
+  padding-top:2%;
 }
 
 .navcustom
@@ -354,3 +324,113 @@ body { padding: 2em; }
   padding-right:5%;
 
 }
+
+.sourceDest
+{
+  padding: 8%;
+  border: 5px solid black;
+  border-radius: 22px;
+  background-color: aliceblue;
+  
+}
+
+.required
+{
+  color:red;
+}
+
+.formText
+{
+  color: black;
+  font-family: sans-serif;
+
+}
+
+.formFields{
+  padding:8%;
+}
+
+.shiftright
+{
+  padding-left:5.7%;
+}
+
+.orText
+{
+  font-size:60px;
+  padding-left:40%;
+  color:black;
+}
+
+.goright
+{
+  padding-left:8%;
+}
+
+.mapBorder
+{
+  border: 15px solid lightblue;
+  border-radius: 30px;
+}
+
+table, th, td {
+    border: 3px solid black;
+    border-collapse: collapse;
+}
+
+table{
+  padding:3%;
+  width:100%;
+}
+
+th,td{
+  text-align:center;
+}
+.tablestyle{
+  background-color: aliceblue;
+}
+
+.tablestart{
+    width:100%;
+}
+
+th{
+  background-color:cadetblue;
+}
+
+.navlist
+{
+  background-color:rgb(0, 128, 128);
+  width:100%;
+  height:80px;
+}
+
+.leftnavlinks
+{
+  padding-left: 3%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+}
+
+.centernavlinks
+{
+  padding-top: 0.7%;
+  text-align:center;
+}
+
+.rightnavlinks
+{
+  padding-top:1.5%;
+  
+}
+
+.navright
+{
+  padding-right:2%;
+}
+
+.textcolor
+{
+  color:white;
+}
+

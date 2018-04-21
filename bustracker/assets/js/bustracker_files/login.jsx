@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, FormGroup, Label, Input } from 'reactstrap';
 import api from '../api';
 import { Link } from 'react-router'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import { GoogleLogout } from 'react-google-login';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 
 
@@ -18,21 +18,14 @@ console.log("this is the props",props);
 
 
 
-  function on_clickLoginButton(ev)
-  {
+  function on_clickLoginButton(ev){
     let data = {};
     data['display_flag'] = true;
-
     $('.tab a').on('click', function (e) {
-  
-    e.preventDefault();
- 
-    $(this).parent().addClass('active');
-    $(this).parent().siblings().removeClass('active');
-  
-});
-
-
+      e.preventDefault();
+      $(this).parent().addClass('active');
+      $(this).parent().siblings().removeClass('active');
+    });
 
     let action = {
       type: 'UPDATE_LOGIN_FORM',
@@ -41,19 +34,17 @@ console.log("this is the props",props);
     props.dispatch(action);
   }
 
-    function on_clickSignUpButton(ev)
-  {
+    function on_clickSignUpButton(ev){
     let data = {};
     data['display_flag'] = false;
 
     $('.tab a').on('click', function (e) {
   
-  e.preventDefault();
+    e.preventDefault();
   
-  $(this).parent().addClass('active');
-  $(this).parent().siblings().removeClass('active');
-  
-});
+    $(this).parent().addClass('active');
+    $(this).parent().siblings().removeClass('active');
+  });
 
 
     let action = {
@@ -65,11 +56,9 @@ console.log("this is the props",props);
 
   function update(ev) { 
 
-    $('.form').find('input, textarea').on('keyup blur focus', function (e) {
-  
+    $('.form').find('input, textarea').on('keyup blur focus', function (e) {  
   var $this = $(this),
       label = $this.prev('label');
-
     if (e.type === 'keyup') {
       if ($this.val() === '') {
           label.removeClass('active highlight');
@@ -83,7 +72,6 @@ console.log("this is the props",props);
         label.removeClass('highlight');   
       }   
     } else if (e.type === 'focus') {
-      
       if( $this.val() === '' ) {
         label.removeClass('highlight'); 
       } 
@@ -91,24 +79,34 @@ console.log("this is the props",props);
         label.addClass('highlight');
       }
     }
-
-});
-
-   
-
-    let tgt = $(ev.target);
-    let data = {};
-    data[tgt.attr('name')] = tgt.val();
-    props.dispatch({
+  });
+  let tgt = $(ev.target);
+  let data = {};
+  data[tgt.attr('name')] = tgt.val();
+  props.dispatch({
       type: 'UPDATE_LOGIN_FORM',
       data: data,
     });
   }
  
+  
   function create_token(ev) {
     console.log("in create token");
     api.submit_login(props.login);
     console.log(props.login);
+  }
+
+  function create_user(ev) {
+    console.log("in create user");
+    let data = {};
+    data['display_flag'] = true;
+      props.dispatch({
+      type: 'UPDATE_LOGIN_FORM',
+      data: data,
+    });
+    api.submit_user(props.login);
+    console.log(props.login);
+
   }
 
   const responseGoogle = (response) => {
@@ -136,7 +134,8 @@ console.log("this is the props",props);
             {props.login.display_flag ?
                <div id="login">   
               <h4>Welcome Back!</h4>
-              
+
+              <Form>
               <FormGroup>
               
                 <div className="field-wrap">
@@ -154,24 +153,22 @@ console.log("this is the props",props);
                 </div>
               
               
-                <button onClick={create_token} className="button button-block">Log In</button>
+                <Button onClick={create_token} className="button button-block">Log In</Button>
               
               </FormGroup>
-
+              </Form>
             </div> 
             :
 
             <div id="signup">   
               <h4>Sign Up for Free</h4>
               
-              <FormGroup>
-              
-                       
+              <FormGroup>                       
                 <div className="field-wrap">
                   <label>
                     Full Name<span className="req">*</span>
                   </label>
-                  <input type="text"required autoComplete="off" name="nameReg" value='' onChange={update}/>
+                  <input type="text"required autoComplete="off" name="new_user_name" value={props.login.new_user_name} onChange={update}/>
                 </div>
               
 
@@ -179,24 +176,31 @@ console.log("this is the props",props);
                 <label>
                   Email Address<span className="req">*</span>
                 </label>
-                <input type="email"required autoComplete="off" name="emailReg" value='' onChange={update}/>
+                <input type="email"required autoComplete="off" name="new_user_email" value={props.login.new_user_email} onChange={update}/>
               </div>
               
               <div className="field-wrap">
                 <label>
                   Set A Password<span className="req">*</span>
                 </label>
-                <input type="password"required autoComplete="off" name="passwordReg" value='' onChange={update}/>
+                <input type="password"required autoComplete="off" name="new_user_pass" value={props.login.new_user_pass} onChange={update}/>
               </div>
 
               <div className="field-wrap">
                 <label>
                   Confirm Password<span className="req">*</span>
                 </label>
-                <input type="password"required autoComplete="off" name="confirmPasswordReg" value='' onChange={update}/>
+                <input type="password"required autoComplete="off" name="new_user_confpass" value={props.login.new_user_confpass} onChange={update}/>
+              </div>
+
+              <div className="field-wrap">
+                <label>
+                  Mobile Number<span className="req">*</span>
+                </label>
+                <input type="text" autoComplete="off" name="new_user_mob" value={props.login.new_user_mob} onChange={update}/>
               </div>
               
-              <button type="submit" className="button button-block" onClick={create_token}>Get Started</button>
+              <button type="submit" className="button button-block" onClick={create_user}>Get Started</button>
               
               </FormGroup>
 

@@ -55,6 +55,11 @@ let empty_login = {
   email: "",
   password: "",
   display_flag: true,
+  new_user_name: "",
+  new_user_pass: "",
+  new_user_confpass: "",
+  new_user_email: "",
+  new_user_mob: "",
 };
 
 function login(state = empty_login, action) {
@@ -88,6 +93,30 @@ function stops_nearby(state = [], action) {
     return state;
   }
 }
+
+function schedule(state = [], action) {
+  switch (action.type) {
+  case 'SCHEDULE':
+    return [...action.schedule];
+  default:
+    return state;
+  }
+}
+
+//************************************
+
+function custom_schedule(state = [], action) {
+  console.log('Before Success',action)
+  switch (action.type) {
+  case "UPDATE_CUSTOM_SCHEDULE":
+    console.log('Success', action.data.custom_schedule)
+    return [...action.data.custom_schedule];
+  default:
+    return state;
+  }
+}
+
+//************************************
 
 function allStops(state = [], action) {
   switch (action.type) {
@@ -154,7 +183,7 @@ function root_reducer(state0, action) {
   // {posts, users, form} is ES6 shorthand for
   // {posts: posts, users: users, form: form}
   let reducer = combineReducers({ users, form, token, login, stops_nearby, bus_list, latitude, longitude
-    , allStops, srcdest_form, error_msg, custom_bus_list});
+    , allStops, srcdest_form, error_msg, custom_bus_list, schedule, custom_schedule});
   let state1 = reducer(state0, action);
   console.log("state1", state1);
   return deepFreeze(state1);

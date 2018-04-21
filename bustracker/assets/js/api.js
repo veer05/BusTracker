@@ -89,6 +89,22 @@ class TheServer {
     });
   }
 
+  get_schedule(data) {
+    console.log('this is schedule',data);
+    $.ajax("api/v1/stop_names", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: (resp) => {
+        store.dispatch({
+          type: 'SCHEDULE',
+          schedule: resp.schedule,
+        });
+      },
+    });
+  }  
+
   submit_login(data) {
     $.ajax("/api/v1/token", {
       method: "post",
@@ -127,6 +143,21 @@ class TheServer {
     store.dispatch({
       type: 'SET_COORDINATE',
       token: null,
+    });
+  }
+
+  submit_user(data) {
+      $.ajax("/api/v1/users", {
+      method: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({ user: data }),
+      success: (resp) => {
+        store.dispatch({
+          type: 'ERROR_MSG',
+          error_msg: "User Created Successfully, Please log in again",
+        });
+      },
     });
   } 
 }

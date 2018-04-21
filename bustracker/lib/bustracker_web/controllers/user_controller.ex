@@ -12,12 +12,22 @@ defmodule BustrackerWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Users.create_user(user_params) do
+    #with {:ok, %User{} = user} <- Users.create_user(user_params) do
+    #  conn
+    #  |> put_status(:created)
+    #  |> put_resp_header("location", user_path(conn, :show, user))
+    #  |> render("show.json", user: user)
+    #end
+    
+    hash_pwd = Comeonin.Argon2.hashpwsalt(user_params["new_user_pass"]);
+    user = %{ name: user_params["new_user_name"], email: user_params["new_user_email"], password_hash: hash_pwd, mobnum: user_params["new_user_mob"]}
+    with {:ok, %User{} = user} <- Users.create_user(user) do
       conn
       |> put_status(:created)
       |> put_resp_header("location", user_path(conn, :show, user))
       |> render("show.json", user: user)
     end
+    
   end
 
   def show(conn, %{"id" => id}) do

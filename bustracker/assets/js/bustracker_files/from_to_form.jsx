@@ -40,21 +40,25 @@ function From_To_Form(props) {
   stops = _.map(props.allStops, (uu, ii) => <option key={ii} value= {uu.stop_id}>{uu.stop_name}</option>);
   
   return(   
-    <div style={{padding: "2ex", float: "left"}}>
+    <div className="sourceDest">
+      <h4 className="formText">Check for buses arriving at any stop in Boston</h4>
       <FormGroup>
-          <Label for="allStops">Source</Label>
+          <div className="formFields">
           <Input type="select" name="source_stop" value={props.srcdest_form.source_stop} onChange={update}>
-          <option></option>
+          <option>Source *</option>
               { stops }
           </Input>
-          <Label for="allStops">Destination</Label>
-          <Input type="select" name="destination_stop" value={props.srcdest_form.destination_stop} onChange={update}>
-          <option></option>
+          </div>
+          <div className="formFields">
+          <Input type="select" required name="destination_stop" value={props.srcdest_form.destination_stop} onChange={update}>
+          <option>Destination</option>
               { stops }
           </Input>
+          </div>
       </FormGroup>
-      <Button onClick={submit} color="primary">Check this Stop</Button> &nbsp;
-    </div>);
+      <Button onClick={submit} color="primary">Get Buses</Button> &nbsp;
+    </div>
+    );
 }
 
 
